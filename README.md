@@ -1,6 +1,22 @@
-What's failing:
+Building dynamically works:
 
+```bash
+$ CGO_LDFLAGS="-L$(pwd)" CGO_CFLAGS="-I$(pwd)" go build                                                                        
+$ ldd duckdb-tests 
+        linux-vdso.so.1 (0x00007fff44bfb000)
+        libduckdb.so => /lib64/libduckdb.so (0x00007f595d271000)
+        libc.so.6 => /lib64/libc.so.6 (0x00007f595d06a000)
+        libdl.so.2 => /lib64/libdl.so.2 (0x00007f595d065000)
+        libpthread.so.0 => /lib64/libpthread.so.0 (0x00007f595d060000)
+        libstdc++.so.6 => /lib64/libstdc++.so.6 (0x00007f595ce42000)
+        libm.so.6 => /lib64/libm.so.6 (0x00007f595cd66000)
+        libgcc_s.so.1 => /lib64/libgcc_s.so.1 (0x00007f595cd49000)
+        /lib64/ld-linux-x86-64.so.2 (0x00007f5971f38000)
 ```
+
+But building statically fails on an ld error:
+
+```bash
 $ CGO_LDFLAGS="-L$(pwd)" CGO_CFLAGS="-I$(pwd)" go build -ldflags '-extldflags " -lstdc++ -lm -lduckdb -static"'
 # duckdb-tests
 /usr/local/go/pkg/tool/linux_amd64/link: running gcc failed: exit status 1
