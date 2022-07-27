@@ -1,0 +1,7 @@
+*.a
+*.zip
+*.o
+*.h
+*.hpp
+src
+duckdb-tests
