@@ -4,3 +4,4 @@
 *.h
 *.hpp
 src
+duckdb-tests
